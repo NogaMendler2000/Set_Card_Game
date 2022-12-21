@@ -97,9 +97,12 @@ public class Dealer implements Runnable {
      * Called when the game should be terminated due to an external event.
      */
     public void terminate() {
-        // TODO implement
+        for(int i=0; i<players.length; i++){
+            players[i].terminate();
+        }
         removeAllCardsFromTable();
         announceWinners();
+        terminate=true;
     }
 
     /**
@@ -124,7 +127,7 @@ public class Dealer implements Runnable {
                         table.removeToken(playerId, i);                        
                         try {
                             if (j >= 3) {
-                                arrToken[0] = i;
+                                // arrToken[0] = i;
                                 
                             }
                             else {
@@ -138,9 +141,7 @@ public class Dealer implements Runnable {
                     }
                 }
             }
-            for (int t = 0; t < players.length; t++) {
-                players[t].sleepy();
-            }
+           
             for (int k = 0; k < arrToken.length; k++) {
                 table.removeCard(arrToken[k]);
             }
@@ -269,13 +270,13 @@ public class Dealer implements Runnable {
                 if (isSet) {
                     // synchronized(players[playerId]) {
                     players[playerId].isPoint=true;
-                        // players[playerId].notify();
+                    //players[playerId].notify();
                     reshuffleTime = System.currentTimeMillis() + env.config.turnTimeoutMillis;
                     // }
                 } else {
                     // synchronized(players[playerId]){
                     players[playerId].isPenalty=true;
-                        // players[playerId].notify();
+                   // players[playerId].notify();
                     // }
                 }
             }
@@ -312,14 +313,16 @@ public class Dealer implements Runnable {
         for (int i = 0; i < env.config.rows * env.config.columns; i++) {
             table.removeCard(i);
         }
-    
+        cleanToken();
+        env.ui.removeTokens();
+    }
+
+    public void cleanToken(){
         for (int i = 0; i < players.length; i = i + 1) {
             players[i].Token.clear();
             
         }
-        env.ui.removeTokens();
     }
-
     /**
      * Check who is/are the winner/s and displays them.
      */
@@ -329,8 +332,8 @@ public class Dealer implements Runnable {
             // -- Check the highest score in the game --
             int maxScore = -1;
             for (int i = 0; i < players.length; i = i + 1) {
-                if (players[i].getScore() > maxScore) {
-                    maxScore = players[i].getScore();
+                if (players[i].score() > maxScore) {
+                    maxScore = players[i].score();
                 }
             }
 
@@ -339,7 +342,7 @@ public class Dealer implements Runnable {
             int[] idOfWinners = new int[players.length];
             int index = 0;
             for (int i = 0; i < players.length; i = i + 1) {
-                if (players[i].getScore() == maxScore) {
+                if (players[i].score() == maxScore) {
                     idOfWinners[index] = i;
                     index = index + 1;
                 }
@@ -355,6 +358,8 @@ public class Dealer implements Runnable {
                     Winners += 1;
                 }
             }
+            env.ui.announceWinner(idOfWinners);
+
         } catch (Exception e) {
             throw new RuntimeException("UNEXCEPTED ERROR", e);
         }

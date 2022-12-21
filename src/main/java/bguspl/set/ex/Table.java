@@ -2,9 +2,7 @@ package bguspl.set.ex;
 
 import bguspl.set.Env;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -125,7 +123,7 @@ public class Table {
      * @param player - the player the token belongs to.
      * @param slot   - the slot on which to place the token.
      */
-    public synchronized void placeToken(int player, int slot) {
+    public void placeToken(int player, int slot) {
         // TODO implement
         env.ui.placeToken(player, slot);
     }
@@ -136,7 +134,7 @@ public class Table {
      * @param slot   - the slot from which to remove the token.
      * @return       - true iff a token was successfully removed.
      */
-    public synchronized boolean removeToken(int player, int slot) {
+    public boolean removeToken(int player, int slot) {
         // TODO implement
         env.ui.removeToken(player, slot);
         return true;

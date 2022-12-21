@@ -100,13 +100,15 @@ public class Player implements Runnable {
             }
             if(isPoint){
                 point();
+                isPoint=false;
             }
             if(isPenalty){
                 penalty();
+                isPenalty=false;
             }
             
         }
-
+        
         env.logger.log(Level.INFO, "Thread " + Thread.currentThread().getName() + " terminated.");
     }
 
@@ -141,7 +143,7 @@ public class Player implements Runnable {
      * Called when the game should be terminated due to an external event.
      */
     public void terminate() {
-        // TODO implement
+        terminate = true;
     }
 
     /**
@@ -154,14 +156,7 @@ public class Player implements Runnable {
         if(!isPenalty && !isPoint) {
             this.slot = slot;
             boolean IsNeedRemove = false;
-            Iterator<Integer> iter = Token.iterator();
-            while (iter.hasNext()) {
-                if (iter.next() == slot) {
-                    IsNeedRemove = true;
-                    Token.remove(slot);
-                    table.removeToken(id, slot);
-                }
-            }
+            IsNeedRemove = needRemove(slot);
             if (!IsNeedRemove && Token.size() == 3) {
                 return;
             }
@@ -169,61 +164,73 @@ public class Player implements Runnable {
                 Token.add(slot);
                 table.placeToken(id, slot);
             }
-            if (Token.size() == 3) {
-                // add set to Table (synchronized on table)
-                table.setPlayers.add(id);
+            checkSet();
+            
+                // try {
+                //     synchronized(table){
+                //         wait();
+                //     }     
+                // } catch (InterruptedException e) {
+                //     // TODO Auto-generated catch block
+                //     e.printStackTrace();
+                // }
                 // add to setid queue in table
-            }   
-        }
+        }   
     }
-    
+
+    /**
+     * The table is updated with players id of giving set
+     * 
+     * @post - if the player gives a set, the table is updated with the id of the player
+     */
+    public void checkSet() {
+        if (Token.size() == 3) 
+            table.setPlayers.add(id);
+    }
+
+    /**
+     * The table is updated with players id of giving set
+     * 
+     * @post - check if in the token there are two slots that are identical
+     * @return - return if it needs removes token
+     */
+    public boolean needRemove(int slot) {
+        boolean IsNeedRemove = false;
+            Iterator<Integer> iter = Token.iterator();
+            while (iter.hasNext()) {
+                if (iter.next().equals(slot)) {
+                    IsNeedRemove = true;
+                    Token.remove(slot);
+                    table.removeToken(id, slot);
+                }
+            }
+        return IsNeedRemove;
+    }
     /**
      * Award a point to a player and perform other related actions.
      *
      * @post - the player's score is increased by 1.
      * @post - the player's score is updated in the ui.
      */
-
-    public void point() {
-    
-        // int ignored = table.countCards(); // this part is just for demonstration in
-        // the unit tests
-        score++;
-        // for (int i = 0; i < 3; i = i + 1) {     
-        //     Iterator <Integer> itr = Token.iterator();      
-        //     try {
-        //         table.removeToken(id, itr.next());
-        //     }
-        //     catch (NoSuchElementException e) {
-        //         System.out.println("b");
-        //     }
-            
-        // }   
-        //table.playersTokens.set(id, new ArrayList<Integer>());
+    public void point() {        
+        isPoint = true;
+        int ignored = table.countCards();
         try {
             Thread.sleep(env.config.pointFreezeMillis);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        env.ui.setScore(id, score);
+        env.ui.setScore(id, ++score);
         env.ui.setFreeze(id, env.config.pointFreezeMillis);
         env.ui.setFreeze(id, 0);
-        isPoint = false;
     }
 
-    public void sleepy(){
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
+ 
     /**
      * Penalize a player and perform other related actions.
      */
     public void penalty() {
-
+        isPenalty = true;
         try {
             for (int i=3; i>0; i--)
             {
@@ -234,10 +241,10 @@ public class Player implements Runnable {
             e.printStackTrace();
         }
         env.ui.setFreeze(id, 0);
-        isPenalty = false;
+        
     }
 
-    public int getScore() {
+    public int score() {
         return score;
     }
 }

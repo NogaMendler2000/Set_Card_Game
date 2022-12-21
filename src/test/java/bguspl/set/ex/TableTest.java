@@ -95,6 +95,31 @@ class TableTest {
         placeSomeCardsAndAssert();
     }
 
+    @Test 
+    void checkRemoveCard() {
+        try{
+            table.cardToSlot[10] = 0;
+            table.slotToCard[0] = 10;
+            table.removeCard(10);
+            assertEquals(table.slotToCard[10], -2);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.print("failed at testCheckRemoveCard");
+        }
+    }
+
+    @Test
+    void checkPlaceCard() {
+        try{
+            table.placeCard(10, 0);
+            assertEquals(table.slotToCard[0], 10);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.print("failed at testCheckRemoveCard");
+        }
+    }
+
+
     static class MockUserInterface implements UserInterface {
         @Override
         public void dispose() {}

@@ -70,4 +70,33 @@ class PlayerTest {
         // check that ui.setScore was called with the player's id and the correct score
         verify(ui).setScore(eq(player.id), eq(expectedScore));
     }
+
+    @Test 
+    void checkSet() {
+        try{
+            player.keyPressed(5);
+            player.keyPressed(6);
+            player.keyPressed(7);
+            player.checkSet();
+            assertEquals(table.setPlayers.peek(), player.id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.print("failed at testCheckSet");
+        }
+    }
+
+    @Test
+    void checkNeedRemove() {
+        try{
+            player.Token.add(5);
+            player.Token.add(6);
+            boolean msg = player.needRemove(5);
+            assertEquals(true, msg);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.print("failed at testCheckNeedRemove");
+        }
+    }
+
+
 }
