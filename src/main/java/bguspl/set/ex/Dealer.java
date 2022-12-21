@@ -118,10 +118,10 @@ public class Dealer implements Runnable {
         int [] arrToken = new int [3];
         int j=0;
         if (isSet) {
-            for (int checkIfItIs : players[playerId].Token) {
-                for (int i = 0; i < env.config.rows * env.config.columns; i++) {
-                    if (checkIfItIs == i) {
-                        table.removeToken(playerId, i);
+            for (int i = 0; i < env.config.rows * env.config.columns; i++) {
+                for (Integer slotOfPlayer : players[playerId].Token) {
+                    if (slotOfPlayer.equals(i)) {
+                        table.removeToken(playerId, i);                        
                         table.removeCard(i);
                         try {
                             arrToken[j] = i;
@@ -133,11 +133,14 @@ public class Dealer implements Runnable {
                     }
                 }
             }
-            //needs to change!!!
+            
             for (int t = 0; t < players.length; t++) {
-                for (int token: players[t].Token) {
-                    if (token == arrToken[t]) {
-                        table.removeToken(t, arrToken[t]);
+                for (Integer token: players[t].Token) {
+                    for(int k=0; k<3; k++){
+                        if (token.equals(arrToken[k])) {
+                            table.removeToken(t, arrToken[k]);
+                            players[t].Token.remove(arrToken[k]);
+                        }
                     }
                 }
             }

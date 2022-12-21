@@ -145,7 +145,7 @@ public class Player implements Runnable {
      */
     public synchronized void keyPressed(int slot) {
         // table.hints();
-        if(!isPenalty && !isPoint &&!stop)
+        if(!isPenalty && !isPoint && !stop)
         {
             this.slot = slot;
             boolean IsNeedRemove = false;
@@ -163,15 +163,17 @@ public class Player implements Runnable {
             else if (!IsNeedRemove && Token.size() < 3) {
                 Token.add(slot);
                 table.placeToken(id, slot);
+
+                if(table.playersTokens.get(id).size() > 3) {
+                    System.out.println(table.playersTokens.get(id).get(0));
+                    System.out.println("W");
+                }
             }
             if (Token.size() == 3) {
                 stop=true;
-                synchronized (table) {
-                    // add set to Table (synchronized on table)
-                    table.setPlayers.add(id);
-
-                    // add to setid queue in table
-                }
+                // add set to Table (synchronized on table)
+                table.setPlayers.add(id);
+                // add to setid queue in table
                 try {
                     synchronized(this) {
                         wait();

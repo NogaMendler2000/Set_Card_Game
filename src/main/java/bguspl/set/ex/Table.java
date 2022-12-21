@@ -128,7 +128,7 @@ public class Table {
      * @param player - the player the token belongs to.
      * @param slot   - the slot on which to place the token.
      */
-    public void placeToken(int player, int slot) {
+    public synchronized void placeToken(int player, int slot) {
         // TODO implement
         playersTokens.get(player).add(slot);
         env.ui.placeToken(player, slot);
@@ -140,7 +140,7 @@ public class Table {
      * @param slot   - the slot from which to remove the token.
      * @return       - true iff a token was successfully removed.
      */
-    public boolean removeToken(int player, int slot) {
+    public synchronized boolean removeToken(int player, int slot) {
         // TODO implement
         env.ui.removeToken(player, slot);
         List<Integer> array = new ArrayList<>(3);
