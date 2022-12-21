@@ -1,0 +1,42 @@
+[15:50:11.208] [INFO   ] thread main starting.
+[15:50:11.214] [SEVERE ] cannot read configuration file config.properties trying from resources.
+[15:50:11.216] [SEVERE ] configuration file was loaded from resources directory.
+[15:50:11.657] [INFO   ] thread dealer starting.
+[15:50:11.662] [INFO   ] Thread dealer starting.
+[15:50:11.770] [SEVERE ] placing card 28 in slot 0
+[15:50:11.871] [SEVERE ] placing card 19 in slot 1
+[15:50:11.971] [SEVERE ] placing card 68 in slot 2
+[15:50:12.072] [SEVERE ] placing card 42 in slot 3
+[15:50:12.174] [SEVERE ] placing card 35 in slot 4
+[15:50:12.275] [SEVERE ] placing card 70 in slot 5
+[15:50:12.376] [SEVERE ] placing card 70 in slot 6
+[15:50:12.477] [SEVERE ] placing card 54 in slot 7
+[15:50:12.578] [SEVERE ] placing card 50 in slot 8
+[15:50:12.679] [SEVERE ] placing card 22 in slot 9
+[15:50:12.779] [SEVERE ] placing card 55 in slot 10
+[15:50:12.880] [SEVERE ] placing card 20 in slot 11
+[15:50:12.882] [SEVERE ] updating countdown to 10000
+[15:50:12.883] [INFO   ] Thread Thread-2starting.
+[15:50:12.882] [INFO   ] Thread Thread-1starting.
+[15:50:13.885] [SEVERE ] updating countdown to 8997
+[15:50:14.886] [SEVERE ] updating countdown to 7996
+[15:50:15.886] [SEVERE ] updating countdown to 6996
+[15:50:16.345] [SEVERE ] key 65 was pressed by player 1
+[15:50:16.346] [SEVERE ] player 1 placing token on slot 4
+[15:50:16.471] [SEVERE ] key 83 was pressed by player 1
+[15:50:16.472] [SEVERE ] player 1 placing token on slot 5
+[15:50:16.487] [SEVERE ] key 80 was pressed by player 2
+[15:50:16.487] [SEVERE ] player 2 placing token on slot 3
+[15:50:16.567] [SEVERE ] key 79 was pressed by player 2
+[15:50:16.568] [SEVERE ] player 2 placing token on slot 2
+[15:50:16.887] [SEVERE ] updating countdown to 5996
+[15:50:18.327] [SEVERE ] key 75 was pressed by player 2
+[15:50:18.327] [SEVERE ] player 2 placing token on slot 5
+[15:50:18.330] [SEVERE ] setting player 2 freeze to 3000
+[15:50:18.330] [INFO   ] thread dealer terminated.
+[15:50:19.331] [SEVERE ] setting player 2 freeze to 2000
+[15:50:20.331] [SEVERE ] setting player 2 freeze to 1000
+[15:50:21.331] [SEVERE ] setting player 2 freeze to 0
+[15:50:23.331] [SEVERE ] thanks for playing... it was fun!
+[15:50:23.331] [INFO   ] thread main terminated.
+[15:50:23.332] [SEVERE ] disposing of user interface elements
