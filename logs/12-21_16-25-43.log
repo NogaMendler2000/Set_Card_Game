@@ -1,0 +1,54 @@
+[16:25:43.383] [INFO   ] thread main starting.
+[16:25:43.389] [SEVERE ] cannot read configuration file config.properties trying from resources.
+[16:25:43.390] [SEVERE ] configuration file was loaded from resources directory.
+[16:25:43.760] [INFO   ] thread dealer starting.
+[16:25:43.760] [INFO   ] Thread dealer starting.
+[16:25:43.866] [SEVERE ] placing card 73 in slot 0
+[16:25:43.967] [SEVERE ] placing card 41 in slot 1
+[16:25:44.067] [SEVERE ] placing card 51 in slot 2
+[16:25:44.168] [SEVERE ] placing card 42 in slot 3
+[16:25:44.269] [SEVERE ] placing card 59 in slot 4
+[16:25:44.369] [SEVERE ] placing card 21 in slot 5
+[16:25:44.470] [SEVERE ] placing card 1 in slot 6
+[16:25:44.571] [SEVERE ] placing card 4 in slot 7
+[16:25:44.671] [SEVERE ] placing card 46 in slot 8
+[16:25:44.772] [SEVERE ] placing card 20 in slot 9
+[16:25:44.872] [SEVERE ] placing card 10 in slot 10
+[16:25:44.972] [SEVERE ] placing card 33 in slot 11
+[16:25:44.973] [INFO   ] Thread Thread-1starting.
+[16:25:44.973] [INFO   ] Thread Thread-4starting.
+[16:25:44.973] [INFO   ] Thread Thread-3starting.
+[16:25:44.973] [INFO   ] Thread Thread-2starting.
+[16:25:44.975] [INFO   ] Thread computer-2 starting.
+[16:25:44.976] [SEVERE ] player 3 placing token on slot 7
+[16:25:44.976] [SEVERE ] player 3 placing token on slot 10
+[16:25:44.977] [SEVERE ] player 3 placing token on slot 5
+[16:25:44.974] [INFO   ] Thread computer-3 starting.
+[16:25:44.988] [SEVERE ] player 4 placing token on slot 3
+[16:25:44.974] [INFO   ] Thread computer-0 starting.
+[16:25:44.973] [SEVERE ] updating countdown to 5000
+[16:25:44.990] [SEVERE ] player 4 placing token on slot 2
+[16:25:44.993] [SEVERE ] removing player 4 token from slot 3
+[16:25:44.994] [SEVERE ] removing player 4 token from slot 2
+[16:25:44.995] [SEVERE ] player 4 placing token on slot 10
+[16:25:44.997] [SEVERE ] removing player 4 token from slot 10
+[16:25:44.998] [SEVERE ] player 1 placing token on slot 7
+[16:25:44.999] [SEVERE ] player 1 placing token on slot 1
+[16:25:44.999] [INFO   ] Thread computer-1 starting.
+[16:25:45.002] [INFO   ] thread dealer terminated.
+[16:25:45.002] [SEVERE ] player 1 placing token on slot 0
+[16:25:45.003] [SEVERE ] player 2 placing token on slot 8
+[16:25:45.003] [SEVERE ] player 2 placing token on slot 4
+[16:25:45.004] [SEVERE ] player 2 placing token on slot 9
+[16:25:45.005] [SEVERE ] player 4 placing token on slot 4
+[16:25:45.005] [SEVERE ] player 4 placing token on slot 2
+[16:25:45.005] [SEVERE ] removing player 4 token from slot 4
+[16:25:45.005] [SEVERE ] player 4 placing token on slot 11
+[16:25:45.005] [SEVERE ] removing player 4 token from slot 11
+[16:25:45.006] [SEVERE ] player 4 placing token on slot 1
+[16:25:45.006] [SEVERE ] removing player 4 token from slot 2
+[16:25:45.008] [SEVERE ] player 4 placing token on slot 3
+[16:25:45.009] [SEVERE ] player 4 placing token on slot 9
+[16:25:50.002] [SEVERE ] thanks for playing... it was fun!
+[16:25:50.003] [INFO   ] thread main terminated.
+[16:25:50.003] [SEVERE ] disposing of user interface elements

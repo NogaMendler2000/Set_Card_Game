@@ -5,6 +5,7 @@ import bguspl.set.Env;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
@@ -12,6 +13,7 @@ import java.util.stream.IntStream;
 
 import javax.crypto.KeyGenerator;
 import javax.lang.model.util.ElementScanner6;
+import javax.swing.text.html.HTMLDocument.Iterator;
 
 /**
  * This class manages the dealer's threads and data
@@ -65,8 +67,6 @@ public class Dealer implements Runnable {
             startGame = false;
             reshuffleGame = false;
             for (int j = 0; j < players.length; j++) {
-                players[j].isPenalty = false;
-                players[j].isPoint = false;
                 Thread t = new Thread(players[j]);
                 t.start();
             }
@@ -114,17 +114,22 @@ public class Dealer implements Runnable {
     /**
      * Checks cards should be removed from the table and removes them.
      */
-    private void removeCardsFromTable() {
+    private void removeCardsFromTable() { 
         int [] arrToken = new int [3];
         int j=0;
-        if (isSet) {
+        if (isSet && players[playerId].Token.size() == 3) {
             for (int i = 0; i < env.config.rows * env.config.columns; i++) {
                 for (Integer slotOfPlayer : players[playerId].Token) {
                     if (slotOfPlayer.equals(i)) {
                         table.removeToken(playerId, i);                        
-                        table.removeCard(i);
                         try {
-                            arrToken[j] = i;
+                            if (j >= 3) {
+                                arrToken[0] = i;
+                                
+                            }
+                            else {
+                                arrToken[j] = i;
+                            }
                         }
                         catch (ArrayIndexOutOfBoundsException e) {
                             System.out.println("B");
@@ -133,7 +138,12 @@ public class Dealer implements Runnable {
                     }
                 }
             }
-            
+            for (int t = 0; t < players.length; t++) {
+                players[t].sleepy();
+            }
+            for (int k = 0; k < arrToken.length; k++) {
+                table.removeCard(arrToken[k]);
+            }
             for (int t = 0; t < players.length; t++) {
                 for (Integer token: players[t].Token) {
                     for(int k=0; k<3; k++){
@@ -189,12 +199,13 @@ public class Dealer implements Runnable {
         else if (isSet) {
             // 3 = number of creating set
             int[] newCards = new int[3];
+            
             int index = 0;
             for (int i = 0; i < table.slotToCard.length; i = i + 1) {
-                if (table.slotToCard[i] == -2) {
+                if (table.slotToCard[i] == -2 && index<3) {
                     newCards[index] = i;
                     index++;
-                }
+                }          
             }
             // 3 = is number oueue<Integer> listOfValue = players[i].Token;
             for (int i = 0; i < 3; i++) {
@@ -221,8 +232,7 @@ public class Dealer implements Runnable {
      */
     private void sleepUntilWokenOrTimeout() {
         // TODO implement
-        if(reshuffleTime - System.currentTimeMillis()<5000)
-        {
+        if(reshuffleTime - System.currentTimeMillis()<5000){
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -240,38 +250,41 @@ public class Dealer implements Runnable {
         }
 
         isSet = false;
+        
         if (!table.setPlayers.isEmpty()) {
             playerId = table.setPlayers.remove();
-            int[] arr = new int[3];
-            List<Integer> itr = table.playersTokens.get(playerId);
-            for (int k = 0; k < itr.size(); k = k + 1) {
-                try {
-                    arr[k] = table.slotToCard[itr.get(k)];
+            int[] arr = new int[3]; 
+            int k = 0;
+            for(int tokenPlayer : players[playerId].Token) {
+                    try {
+                        arr[k] = table.slotToCard[tokenPlayer];
+                    }
+                    catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("A");
+                    }
+                    k++;
                 }
-                catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("A");
+                isSet = env.util.testSet(arr);
+
+                if (isSet) {
+                    // synchronized(players[playerId]) {
+                    players[playerId].isPoint=true;
+                        // players[playerId].notify();
+                    reshuffleTime = System.currentTimeMillis() + env.config.turnTimeoutMillis;
+                    // }
+                } else {
+                    // synchronized(players[playerId]){
+                    players[playerId].isPenalty=true;
+                        // players[playerId].notify();
+                    // }
                 }
             }
-            isSet = env.util.testSet(arr);
+           
             // while (players[playerId].playerThread.getState() != State.WAITING){
                 
             // }
-            if (isSet) {
-                synchronized(players[playerId]) {
-                    players[playerId].isPoint=true;
-                    players[playerId].notify();
-                }
-            } else {
-                synchronized(players[playerId]){
-                    players[playerId].isPenalty=true;
-                    players[playerId].notify();
-                }
-            }
-        }
-
-        // player interpted / notify after giving pentatly or point
+           
     }
-
     /**
      * Reset and/or update the countdown and the countdown display.removeAllCardsFromTable
      */
@@ -299,10 +312,10 @@ public class Dealer implements Runnable {
         for (int i = 0; i < env.config.rows * env.config.columns; i++) {
             table.removeCard(i);
         }
-        table.playersTokens.clear();
+    
         for (int i = 0; i < players.length; i = i + 1) {
             players[i].Token.clear();
-            table.playersTokens.add(new ArrayList<Integer>());
+            
         }
         env.ui.removeTokens();
     }

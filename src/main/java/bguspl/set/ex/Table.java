@@ -32,7 +32,6 @@ public class Table {
      * Mapping between a card and the slot it is in (null if none).
      */
     protected final Integer[] cardToSlot; // slot per card (if any)
-    protected final ArrayList<List<Integer>> playersTokens = new ArrayList<List<Integer>>();
     protected final Queue<Integer> setPlayers = new LinkedList<Integer>();
 
     /**
@@ -48,8 +47,6 @@ public class Table {
         this.cardToSlot = cardToSlot;
         for (int i = 0; i < cardToSlot.length; i = i + 1)
             cardToSlot[i] = -1;
-        for(int i = 0; i < env.config.humanPlayers + env.config.computerPlayers; i = i + 1)
-            this.playersTokens.add(new ArrayList<Integer>()); 
     }
 
     /**
@@ -94,7 +91,7 @@ public class Table {
      *
      * @post - the card placed is on the table, in the assigned slot.
      */
-    public void placeCard(int card, int slot) {
+    public synchronized void placeCard(int card, int slot) {
         try {
             Thread.sleep(env.config.tableDelayMillis);
         } catch (InterruptedException ignored) {}
@@ -111,7 +108,7 @@ public class Table {
      * Removes a card from a grid slot on the table.
      * @param slot - the slot from which to remove the card.
      */
-    public void removeCard(int slot) {
+    public synchronized void removeCard(int slot) {
         try {
             Thread.sleep(env.config.tableDelayMillis);
         } catch (InterruptedException ignored) {}
@@ -130,7 +127,6 @@ public class Table {
      */
     public synchronized void placeToken(int player, int slot) {
         // TODO implement
-        playersTokens.get(player).add(slot);
         env.ui.placeToken(player, slot);
     }
 
@@ -143,16 +139,6 @@ public class Table {
     public synchronized boolean removeToken(int player, int slot) {
         // TODO implement
         env.ui.removeToken(player, slot);
-        List<Integer> array = new ArrayList<>(3);
-        Iterator<Integer> iter = playersTokens.get(player).iterator();
-        while(iter.hasNext())
-        {
-            int pos = iter.next();
-            if(pos!=slot)
-               array.add(pos);
-
-        }
-        playersTokens.set(player, array);
-        return false;
+        return true;
     }
 }

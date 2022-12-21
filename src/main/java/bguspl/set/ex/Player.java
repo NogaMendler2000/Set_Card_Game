@@ -4,9 +4,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 import bguspl.set.Env;
 
@@ -50,7 +48,6 @@ public class Player implements Runnable {
     private final boolean human;
     public boolean isPenalty;
     public boolean isPoint;
-    private boolean stop;
     /**
      * True iff game should be terminated due to an external event.
      */
@@ -62,6 +59,7 @@ public class Player implements Runnable {
     private int score = 0;
     private int slot;
     public BlockingQueue<Integer> Token;
+
 
     /**
      * The class constructor.
@@ -79,7 +77,6 @@ public class Player implements Runnable {
         this.id = id;
         this.human = human;
         Token = new ArrayBlockingQueue<Integer>(3);
-        stop=false;
     }
 
     /**
@@ -95,12 +92,21 @@ public class Player implements Runnable {
             createArtificialIntelligence();
         }
         while (!terminate) {
+            
             if (!human) {
                 // synchronized(aiThread){
                 //     aiThread.notify();
                 // }
             }
+            if(isPoint){
+                point();
+            }
+            if(isPenalty){
+                penalty();
+            }
+            
         }
+
         env.logger.log(Level.INFO, "Thread " + Thread.currentThread().getName() + " terminated.");
     }
 
@@ -115,11 +121,11 @@ public class Player implements Runnable {
         aiThread = new Thread(() -> {
             env.logger.log(Level.INFO, "Thread " + Thread.currentThread().getName() + " starting.");
             while (!terminate) {
-                slot = ThreadLocalRandom.current().nextInt(1, env.config.rows * env.config.columns);
+                slot = ThreadLocalRandom.current().nextInt(0, env.config.rows * env.config.columns);
                 keyPressed(slot);
                 // try {
-                //         synchronized (this) {
-                //             if(checkSet) {
+                //         if(stop){
+                //             synchronized (aiThread) {
                 //                 aiThread.wait();
                 //             }
                 //         }
@@ -144,9 +150,8 @@ public class Player implements Runnable {
      * @param slot - the slot corresponding to the key pressed.
      */
     public synchronized void keyPressed(int slot) {
-        // table.hints();
-        if(!isPenalty && !isPoint && !stop)
-        {
+        table.hints();
+        if(!isPenalty && !isPoint) {
             this.slot = slot;
             boolean IsNeedRemove = false;
             Iterator<Integer> iter = Token.iterator();
@@ -160,41 +165,18 @@ public class Player implements Runnable {
             if (!IsNeedRemove && Token.size() == 3) {
                 return;
             }
-            else if (!IsNeedRemove && Token.size() < 3) {
+            else if (!IsNeedRemove) {
                 Token.add(slot);
                 table.placeToken(id, slot);
-
-                if(table.playersTokens.get(id).size() > 3) {
-                    System.out.println(table.playersTokens.get(id).get(0));
-                    System.out.println("W");
-                }
             }
             if (Token.size() == 3) {
-                stop=true;
                 // add set to Table (synchronized on table)
                 table.setPlayers.add(id);
                 // add to setid queue in table
-                try {
-                    synchronized(this) {
-                        wait();
-                        if (isPoint)
-                        {
-                            point();
-                            isPoint = false;
-                        }
-                        if (isPenalty)
-                        {
-                            penalty();
-                            isPenalty=false;
-                        }  
-                    }
-                } catch (InterruptedException e) {
-
-                }
             }   
         }
     }
-
+    
     /**
      * Award a point to a player and perform other related actions.
      *
@@ -203,6 +185,7 @@ public class Player implements Runnable {
      */
 
     public void point() {
+    
         // int ignored = table.countCards(); // this part is just for demonstration in
         // the unit tests
         score++;
@@ -225,13 +208,22 @@ public class Player implements Runnable {
         env.ui.setScore(id, score);
         env.ui.setFreeze(id, env.config.pointFreezeMillis);
         env.ui.setFreeze(id, 0);
-        stop=false;
+        isPoint = false;
     }
 
+    public void sleepy(){
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
     /**
      * Penalize a player and perform other related actions.
      */
     public void penalty() {
+
         try {
             for (int i=3; i>0; i--)
             {
@@ -242,7 +234,7 @@ public class Player implements Runnable {
             e.printStackTrace();
         }
         env.ui.setFreeze(id, 0);
-        stop=false;
+        isPenalty = false;
     }
 
     public int getScore() {

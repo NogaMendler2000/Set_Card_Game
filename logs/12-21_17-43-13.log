@@ -1,0 +1,109 @@
+[17:43:13.440] [INFO   ] thread main starting.
+[17:43:13.447] [SEVERE ] cannot read configuration file config.properties trying from resources.
+[17:43:13.449] [SEVERE ] configuration file was loaded from resources directory.
+[17:43:13.882] [INFO   ] thread dealer starting.
+[17:43:13.882] [INFO   ] Thread dealer starting.
+[17:43:13.988] [SEVERE ] placing card 61 in slot 0
+[17:43:14.088] [SEVERE ] placing card 73 in slot 1
+[17:43:14.189] [SEVERE ] placing card 49 in slot 2
+[17:43:14.289] [SEVERE ] placing card 51 in slot 3
+[17:43:14.390] [SEVERE ] placing card 13 in slot 4
+[17:43:14.490] [SEVERE ] placing card 35 in slot 5
+[17:43:14.591] [SEVERE ] placing card 12 in slot 6
+[17:43:14.692] [SEVERE ] placing card 15 in slot 7
+[17:43:14.792] [SEVERE ] placing card 10 in slot 8
+[17:43:14.893] [SEVERE ] placing card 17 in slot 9
+[17:43:14.993] [SEVERE ] placing card 78 in slot 10
+[17:43:15.094] [SEVERE ] placing card 76 in slot 11
+[17:43:15.094] [SEVERE ] updating countdown to 60000
+[17:43:15.094] [INFO   ] Thread Thread-2starting.
+[17:43:15.094] [INFO   ] Thread Thread-1starting.
+[17:43:15.500] [SEVERE ] key 65 was pressed by player 1
+[17:43:15.507] [SEVERE ] player 1 placing token on slot 4
+[17:43:16.098] [SEVERE ] updating countdown to 58996
+[17:43:16.450] [SEVERE ] key 59 was pressed by player 2
+[17:43:16.454] [SEVERE ] player 2 placing token on slot 7
+[17:43:16.858] [SEVERE ] key 83 was pressed by player 1
+[17:43:17.099] [SEVERE ] updating countdown to 57995
+[17:43:17.338] [SEVERE ] key 44 was pressed by player 2
+[17:43:17.341] [SEVERE ] player 2 placing token on slot 9
+[17:43:17.380] [SEVERE ] key 83 was pressed by player 1
+[17:43:17.698] [SEVERE ] key 83 was pressed by player 1
+[17:43:18.002] [SEVERE ] key 83 was pressed by player 1
+[17:43:18.098] [SEVERE ] key 77 was pressed by player 2
+[17:43:18.099] [SEVERE ] player 2 placing token on slot 8
+[17:43:18.099] [SEVERE ] updating countdown to 56995
+[17:43:18.242] [SEVERE ] key 83 was pressed by player 1
+[17:43:18.433] [SEVERE ] key 83 was pressed by player 1
+[17:43:18.633] [SEVERE ] key 83 was pressed by player 1
+[17:43:18.785] [SEVERE ] key 76 was pressed by player 2
+[17:43:18.850] [SEVERE ] key 83 was pressed by player 1
+[17:43:19.082] [SEVERE ] key 83 was pressed by player 1
+[17:43:19.101] [SEVERE ] updating countdown to 55993
+[17:43:19.273] [SEVERE ] key 83 was pressed by player 1
+[17:43:19.474] [SEVERE ] key 83 was pressed by player 1
+[17:43:19.666] [SEVERE ] key 83 was pressed by player 1
+[17:43:19.834] [SEVERE ] key 75 was pressed by player 2
+[17:43:19.850] [SEVERE ] key 83 was pressed by player 1
+[17:43:20.098] [SEVERE ] key 87 was pressed by player 1
+[17:43:20.101] [SEVERE ] updating countdown to 54993
+[17:43:20.337] [SEVERE ] key 87 was pressed by player 1
+[17:43:20.466] [SEVERE ] key 74 was pressed by player 2
+[17:43:20.530] [SEVERE ] key 87 was pressed by player 1
+[17:43:20.713] [SEVERE ] key 87 was pressed by player 1
+[17:43:20.723] [SEVERE ] key 74 was pressed by player 2
+[17:43:20.937] [SEVERE ] key 76 was pressed by player 2
+[17:43:21.102] [SEVERE ] updating countdown to 53992
+[17:43:21.122] [SEVERE ] key 81 was pressed by player 1
+[17:43:21.162] [SEVERE ] key 75 was pressed by player 2
+[17:43:21.337] [SEVERE ] key 74 was pressed by player 2
+[17:43:21.521] [SEVERE ] key 74 was pressed by player 2
+[17:43:21.710] [SEVERE ] key 74 was pressed by player 2
+[17:43:21.753] [SEVERE ] key 87 was pressed by player 1
+[17:43:21.866] [SEVERE ] key 76 was pressed by player 2
+[17:43:22.018] [SEVERE ] key 87 was pressed by player 1
+[17:43:22.034] [SEVERE ] key 75 was pressed by player 2
+[17:43:22.102] [SEVERE ] updating countdown to 52992
+[17:43:22.154] [SEVERE ] key 74 was pressed by player 2
+[17:43:22.202] [SEVERE ] key 87 was pressed by player 1
+[17:43:22.402] [SEVERE ] key 87 was pressed by player 1
+[17:43:22.435] [SEVERE ] key 77 was pressed by player 2
+[17:43:22.618] [SEVERE ] key 87 was pressed by player 1
+[17:43:22.666] [SEVERE ] key 44 was pressed by player 2
+[17:43:22.793] [SEVERE ] key 76 was pressed by player 2
+[17:43:22.922] [SEVERE ] key 81 was pressed by player 1
+[17:43:22.979] [SEVERE ] key 44 was pressed by player 2
+[17:43:23.103] [SEVERE ] updating countdown to 51991
+[17:43:23.138] [SEVERE ] key 81 was pressed by player 1
+[17:43:23.179] [SEVERE ] key 77 was pressed by player 2
+[17:43:23.322] [SEVERE ] key 46 was pressed by player 2
+[17:43:23.330] [SEVERE ] key 81 was pressed by player 1
+[17:43:23.537] [SEVERE ] key 81 was pressed by player 1
+[17:43:23.618] [SEVERE ] key 77 was pressed by player 2
+[17:43:23.626] [SEVERE ] key 44 was pressed by player 2
+[17:43:23.730] [SEVERE ] key 81 was pressed by player 1
+[17:43:23.889] [SEVERE ] key 79 was pressed by player 2
+[17:43:23.939] [SEVERE ] key 81 was pressed by player 1
+[17:43:24.103] [SEVERE ] updating countdown to 50991
+[17:43:24.154] [SEVERE ] key 81 was pressed by player 1
+[17:43:24.163] [SEVERE ] key 73 was pressed by player 2
+[17:43:24.274] [SEVERE ] key 74 was pressed by player 2
+[17:43:24.378] [SEVERE ] key 81 was pressed by player 1
+[17:43:24.442] [SEVERE ] key 74 was pressed by player 2
+[17:43:24.609] [SEVERE ] key 74 was pressed by player 2
+[17:43:24.850] [SEVERE ] key 76 was pressed by player 2
+[17:43:24.970] [SEVERE ] key 75 was pressed by player 2
+[17:43:25.025] [SEVERE ] key 65 was pressed by player 1
+[17:43:25.104] [SEVERE ] updating countdown to 49990
+[17:43:25.162] [SEVERE ] key 74 was pressed by player 2
+[17:43:25.314] [SEVERE ] key 44 was pressed by player 2
+[17:43:25.450] [SEVERE ] key 77 was pressed by player 2
+[17:43:26.105] [SEVERE ] updating countdown to 48989
+[17:43:27.105] [SEVERE ] updating countdown to 47989
+[17:43:28.105] [SEVERE ] updating countdown to 46989
+[17:43:29.106] [SEVERE ] updating countdown to 45988
+[17:43:30.106] [SEVERE ] updating countdown to 44988
+[17:43:31.107] [SEVERE ] updating countdown to 43987
+[17:43:32.107] [SEVERE ] updating countdown to 42987
+[17:43:33.108] [SEVERE ] updating countdown to 41986
+[17:43:34.108] [SEVERE ] updating countdown to 40986
