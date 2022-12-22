@@ -24,13 +24,13 @@ public class Table {
     /**
      * Mapping between a slot and the card placed in it (null if none).
      */
-    protected final Integer[] slotToCard; // card per slot (if any)
+    protected Integer[] slotToCard; // card per slot (if any)
 
     /**
      * Mapping between a card and the slot it is in (null if none).
      */
-    protected final Integer[] cardToSlot; // slot per card (if any)
-    protected final Queue<Integer> setPlayers = new LinkedList<Integer>();
+    protected Integer[] cardToSlot; // slot per card (if any)
+    protected Queue<Integer> setPlayers = new LinkedList<Integer>();
 
     /**
      * Constructor for testing.

@@ -175,54 +175,17 @@ public class Dealer implements Runnable {
      */
     private void placeCardsOnTable() {
         // TODO implement
-
+        synchronized (table){
         // Beginning of the game - Put randomly all the cards on the deck
-        if (startGame || reshuffleGame) {
-            int[] cardsOnTable = new int[env.config.rows * env.config.columns];
-            boolean legal = true;
-            for (int i = 0; i < env.config.rows * env.config.columns; i++) {
-                int randomNum;
-                do {
-                    legal = true;
-                    randomNum = ThreadLocalRandom.current().nextInt(0, env.config.deckSize);
-                    for (int j = 0; j < i; j++) {
-                        if (cardsOnTable[j] == randomNum || table.cardToSlot[randomNum] == -2) 
-                            legal = false;
-                    }
-                } while (!legal);
-                cardsOnTable[i] = randomNum;
-                table.slotToCard[i] = randomNum; // 12
-                table.cardToSlot[randomNum] = i; // 81
-                table.placeCard(randomNum, i);
+            if (startGame || reshuffleGame) {
+            randomTableCards();
             }
-        }
-        // Each Iteration - Place new Three cards on the deck
-        else if (isSet) {
-            // 3 = number of creating set
-            int[] newCards = new int[3];
-            
-            int index = 0;
-            for (int i = 0; i < table.slotToCard.length; i = i + 1) {
-                if (table.slotToCard[i] == -2 && index<3) {
-                    newCards[index] = i;
-                    index++;
-                }          
-            }
-            // 3 = is number oueue<Integer> listOfValue = players[i].Token;
-            for (int i = 0; i < 3; i++) {
-                boolean legal;
-                int randomNum;
-                do {
-                    legal = true;
-                    randomNum = ThreadLocalRandom.current().nextInt(0, env.config.deckSize);
-                    for (int j = 0; j < env.config.rows * env.config.columns; j++) {
-                        if (table.slotToCard[j] == randomNum || table.cardToSlot[randomNum] == -2)
-                            legal = false;
-                    }
-                } while (!legal);
-                table.slotToCard[newCards[i]] = randomNum; // 12
-                table.cardToSlot[randomNum] = newCards[i]; // 81
-                table.placeCard(randomNum, newCards[i]);
+            // Each Iteration - Place new Three cards on the deck
+            else if (isSet) {
+                // 3 = number of creating set
+                
+                // 3 = is number oueue<Integer> listOfValue = players[i].Token;
+            randomSetCards();
             }
         }
     }
@@ -310,17 +273,77 @@ public class Dealer implements Runnable {
      */
     private void removeAllCardsFromTable() {
         // TODO implement
-        for (int i = 0; i < env.config.rows * env.config.columns; i++) {
-            table.removeCard(i);
+        synchronized (table) {
+            for (int i = 0; i < env.config.rows * env.config.columns; i++) {
+                table.removeCard(i);
+            }
+            cleanToken();
+            env.ui.removeTokens();
         }
-        cleanToken();
-        env.ui.removeTokens();
     }
 
     public void cleanToken(){
         for (int i = 0; i < players.length; i = i + 1) {
             players[i].Token.clear();
             
+        }
+    }
+
+    /**
+     * The table is updated with new legal cards
+     * 
+     * @post - the dealer choose 12 different cards that we haven't used before
+     */
+    public void randomTableCards(){
+        int[] cardsOnTable = new int[env.config.rows * env.config.columns];
+        boolean legal = true;
+        for (int i = 0; i < env.config.rows * env.config.columns; i++) {
+            int randomNum;
+            do {
+                legal = true;
+                randomNum = ThreadLocalRandom.current().nextInt(0, env.config.deckSize);
+                for (int j = 0; j < i; j++) {
+                    if (cardsOnTable[j] == randomNum || table.cardToSlot[randomNum] == -2) 
+                        legal = false;
+                }
+            } while (!legal);
+            cardsOnTable[i] = randomNum;
+            table.slotToCard[i] = randomNum; // 12
+            table.cardToSlot[randomNum] = i; // 81
+            table.placeCard(randomNum, i);
+        }
+    }
+
+    /**
+     * The table is updated with new cards instance the cards who formed a set
+     * 
+     * @post - the dealer choose 3 different cards that we haven't used before
+     */
+    public void randomSetCards(){
+        int[] newCards = new int[3];
+            
+            int index = 0;
+            for (int i = 0; i < table.slotToCard.length; i = i + 1) {
+                if (table.slotToCard[i] == -2 && index<3) {
+                    newCards[index] = i;
+                    index++;
+                }          
+            }
+
+        for (int i = 0; i < 3; i++) {
+            boolean legal;
+            int randomNum;
+            do {
+                legal = true;
+                randomNum = ThreadLocalRandom.current().nextInt(0, env.config.deckSize);
+                for (int j = 0; j < env.config.rows * env.config.columns; j++) {
+                    if (table.slotToCard[j] == randomNum || table.cardToSlot[randomNum] == -2)
+                        legal = false;
+                }
+            } while (!legal);
+            table.slotToCard[newCards[i]] = randomNum; // 12
+            table.cardToSlot[randomNum] = newCards[i]; // 81
+            table.placeCard(randomNum, newCards[i]);
         }
     }
     /**

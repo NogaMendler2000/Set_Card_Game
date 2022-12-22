@@ -14,56 +14,69 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.logging.Logger;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @ExtendWith(MockitoExtension.class)
-
 class DealerTest {
     @Mock
     private Table table;
-    @Mock
     private Player[] players;
     @Mock
-    private boolean isSet;
+    private Dealer dealer;
     @Mock
-    private boolean startGame = true;
+    private Logger logger;
     @Mock
-    private boolean reshuffleGame = true;
+    private Env env;
+    @Mock
+    Util util;
+    @Mock
+    private UserInterface ui;
     /**
      * The list of card ids that are left in the dealer's deck.
      */
     @Mock
     private List<Integer> deck;
-    @Mock
     private int playerId;
     /**
      * True iff game should be terminated due to an external event.
      */
-    @Mock
     private volatile boolean terminate;
 
     /**
      * The time when the dealer needs to reshuffle the deck due to turn timeout.
      */
-    @Mock
     private long reshuffleTime = Long.MAX_VALUE;
-    
+
+
     @Test 
-    void checkSet() {
+    void checkRandomTableCards() {
         try{
-            Player P1 = new Player(null, null, table, playerId, isSet);
-            
-            assertEquals();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.print("failed at testCheckSet");
+            dealer.randomTableCards();
+            for(int i=0; i<env.config.rows * env.config.columns; i++){
+                assertNotEquals(-2, table.slotToCard[i]);
+            }
         }
-    }
+        catch (Exception e) {
+            e.printStackTrace();
+            System.out.print("failed at testRandomTableCards");
+        }        
+     }
+     
 
-
+    @Test 
+    void checkRandomSetCards() {
+        try{
+            dealer.randomSetCards();
+            for(int i=0; i<env.config.rows * env.config.columns; i++){
+                assertNotEquals(-2, table.slotToCard[i]);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            System.out.print("failed at testRandomSetCards");
+        }        
+     }
 
 }
+
+

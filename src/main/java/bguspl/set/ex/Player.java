@@ -41,7 +41,7 @@ public class Player implements Runnable {
      * key presses).
      */
     private Thread aiThread;
-
+    public Object obj;
     /**
      * True iff the player is human (not a computer player).
      */
@@ -77,6 +77,7 @@ public class Player implements Runnable {
         this.id = id;
         this.human = human;
         Token = new ArrayBlockingQueue<Integer>(3);
+        obj = new Object();
     }
 
     /**
@@ -124,6 +125,7 @@ public class Player implements Runnable {
             env.logger.log(Level.INFO, "Thread " + Thread.currentThread().getName() + " starting.");
             while (!terminate) {
                 slot = ThreadLocalRandom.current().nextInt(0, env.config.rows * env.config.columns);
+                
                 keyPressed(slot);
                 // try {
                 //         if(stop){
@@ -184,8 +186,15 @@ public class Player implements Runnable {
      * @post - if the player gives a set, the table is updated with the id of the player
      */
     public void checkSet() {
-        if (Token.size() == 3) 
+        if (Token.size() == 3){ 
             table.setPlayers.add(id);
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
